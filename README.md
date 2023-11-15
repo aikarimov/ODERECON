@@ -38,7 +38,7 @@ Download a zip file or via git, and then add the ABM_LSM_Optim directory to your
 ```
 ## How to use
 
-Let us find equations of the Lorenz system. First, generate a full trajectory with a stepsize $h=0.01$ from the initial point $(0.1,0,-0.1)^\top$.
+Let us find equations of the Lorenz system. First, generate a full trajectory with a stepsize $h=0.01$ from the initial point $(0.1,0,-0.1)^\top$:
 ```matlab
 %simulate Lorenz system
 Tmax = 45;
@@ -46,7 +46,7 @@ h = 0.01;
 [t,y] = ode45(@Lorenz,[0:h:Tmax],[0.1,0,-0.1]); %solve ODE
 w = transpose(Lorenz(0,transpose(y))); %find derivatives
 ```
-Then, select $N$ random points
+Then, select $N$ random points:
 
 ```matlab
 %get uniformly distributed points from the simulated attractor
@@ -62,9 +62,7 @@ for i = 1:N %take random points from trajectory
     Y(i,:) = y(id,:);
 end
 ```
-So, we have all we need to reverse the process back and obtain the Lorenz equations once again using ABM_LSM_Optim.
-
-First, we use a function `PolyRegression` to obtain two cell arrays $T$ and $H$, containing all necessary information about the reconstructed system (see section Algorithm for details).
+Then, we obtain the Lorenz equations from these 19 points using ABM_LSM_Optim. First, we use a function `PolyRegression` to obtain two cell arrays $T$ and $H$, containing all necessary information about the reconstructed system (see section Algorithm for details).
 
 ```matlab
 dmax = 2; % maximum power of the monomial
