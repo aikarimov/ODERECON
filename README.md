@@ -3,9 +3,9 @@ This repository contains codes for reconstructing dynamical systems using the le
 
 ## Overview
 
-Suppose, we find a description of a continuous dynamical system in a form of an autonomous odrinary differential equation
+Suppose, the problem is to find a description of a continuous dynamical system in a form of an autonomous odrinary differential equation
 $$\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x}),$$
-and we have a number of sample points of the trajectiory $\mathbf{x}(t_i)$, but the mathematical description of the function $\mathbf{f}(\mathbf{x})$ is unknown. So, the problem is to find it. 
+and we have a number of sample points of the trajectiory $\mathbf{x}(t_i)$, but the mathematical description of the function $\mathbf{f}(\mathbf{x})$ is unknown. 
 
 Suppose, every line of a function $\mathbf{f}(\mathbf{x})$ is a sum of monomials with coefficients, like
 
