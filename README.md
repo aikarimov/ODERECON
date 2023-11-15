@@ -73,19 +73,19 @@ To show the reconstruction result, we use a function `prettyABM`:
 ```matlab
 prettyABM(H,T)
 ```
-Which outputs into the console
+Which outputs into the console:
 ```
 f1 = -10*x1 + 10*x2
 f2 = 28*x1 - x2 - x1*x3
 f3 = -2.6667*x3 + x1*x2
 ```
-Then, we simulate the results using a fjunction `oderecon`
+Then, we simulate the results using a function `oderecon`:
 ```matlab
 [~,y] = ode45(@(t,x)oderecon(H,T,t,x),[0:h:Tmax],[0.1,0,-0.1]); %solve ODE
 ```
 ## Algorithm
 
-The code ABM_LSM_Optim uses two basic algorithms: the least square method (LSM) for evaluating unknown coefficient of equations and the approximate Buchberger-Moller (ABM) algorithm for excluding vanishing monomials 
+The code ABM_LSM_Optim uses two basic algorithms: the least square method (LSM) for evaluating unknown coefficient of equations and the approximate Buchberger-Moller (ABM) algorithm for excluding vanishing monomials.
 
 ## Literature
 The ABM and delMinorTerms routines are written following pseudocodes provided in the work
