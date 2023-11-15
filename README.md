@@ -3,11 +3,15 @@ This repository contains codes for reconstructing dynamical systems using the le
 
 ## Overview
 
+Suppose, we find a description of a continuous dynamical system in a form of an autonomous odrinary differential equation
+$$\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x}),$$
+and the trajectiory (solution) is known, but $\mathbf{f}(\mathbf{x})$ is not.
+
 ## Installation
-Download a zip file or via git,  add the ABM_LSM_Optim directory to your search path:
+Download a zip file or via git, and then add the ABM_LSM_Optim directory to your search path:
 
 ```
->> addpath('C:\Downloads\ABM_LSM_Optim')  
+>> addpath('C:\Users\...\Downloads\ABM_LSM_Optim')  
 >> savepath
 ```
 ## Algorithm
