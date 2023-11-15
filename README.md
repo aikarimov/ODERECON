@@ -86,6 +86,7 @@ Then, we simulate the results using a function `oderecon`:
 ## Algorithm
 
 First, introduce some formalism. Representation of an arbitrary function $\mathbf{\mathbf{x}}$ is contained in
+
 ![Fig2](https://github.com/aikarimov/ABM_LSM_Optim/blob/main/handt.drawio.png)
 The code ABM_LSM_Optim uses two basic algorithms: the least square method (LSM) for evaluating unknown coefficient of equations and the approximate Buchberger-Moller (ABM) algorithm for excluding vanishing monomials.
 
