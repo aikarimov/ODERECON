@@ -5,7 +5,7 @@ This repository contains codes for reconstructing dynamical systems using the le
 
 Suppose, we find a description of a continuous dynamical system in a form of an autonomous odrinary differential equation
 $$\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x}),$$
-and a number of sample points of the trajectiory $\mathbf{x}(t_i)$ is known, but the mathematical description of a derivative function $\mathbf{f}(\mathbf{x})$ is not. For example, we have a recorded  three-dimensional trajectory $\mathbf{x = (x,y,z)^\top$ as in the left pane below, shown blue. 
+and a number of sample points of the trajectiory $\mathbf{x}(t_i)$ is known, but the mathematical description of a derivative function $\mathbf{f}(\mathbf{x})$ is not. For example, we have a recorded  three-dimensional trajectory $\mathbf{x} = (x,y,z)^\top$ as in the left pane below, shown blue. 
 
 ![Fig1](https://github.com/aikarimov/ABM_LSM_Optim/blob/main/scheme.drawio.png)
 
