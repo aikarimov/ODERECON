@@ -1,5 +1,14 @@
 # ABM_LSM_Optim
-This repository contains codes for reconstructing dynamical systems using least square method. 
+This repository contains codes for reconstructing dynamical systems using the least square method. 
+
+## Algorithm
+
+The code ABM_LSM_Optim uses two basic algorithms: the least square method (LSM) for evaluating unknown coefficient of equations and the approximate Buchberger-Moller (ABM) algorithm for excluding vanishing monomials 
+
+## Literature
+The ABM and delMinorTerms routines are written following pseudocodes provided in the work
+
+Kera, H.; Hasegawa, Y. Noise-tolerant algebraic method for reconstruction of nonlinear dynamical systems. Nonlinear Dynamics 2016, 85(1), 675-692,  https://doi.org/10.1007/s11071-016-2715-3
 
 If you use this code or its parts in scientific work, please, cite the following papers:
 
