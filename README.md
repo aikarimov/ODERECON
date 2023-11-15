@@ -27,7 +27,7 @@ $$\begin{cases}
 \end{aligned}
 \end{cases}$$
 
-Then, we can solve this reconstructed system with a standard matlab solver like `ode45`, using a function `oderecon` as a right-hand side function of a differential equation. The obtained trajectory is shown yellow in the right pane.
+Then, we can solve this reconstructed system with a standard matlab solver like `ode45`, using a function `oderecon` as a required function. The obtained trajectory is shown yellow in the right pane.
 
 ## Installation
 Download a zip file or via git, and then add the ABM_LSM_Optim directory to your search path:
