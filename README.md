@@ -86,7 +86,7 @@ Then, we simulate the results using a function `oderecon`:
 ```
 ## Algorithm
 
-First, introduce some formalism. Representation of an arbitrary $M$-dimensional function $$\mathbf{f}(\mathbf{x})$$ is contained in two cell arrays $H$ and $T$. Entries of $H$ are $L_i \times 1$ matrices (column vectors) of coefficients by monomials in $i$-th line of $\mathbf{f}(\mathbf{x})$, where $L_i$ is a number of terms in $i$-th line. Entries of $T$ are $L_i \times M$ matrices containing powers of variables in each monomial, ordered degree-lexicographically.
+First, introduce some formalism. Representation of an arbitrary $M$-dimensional function $\mathbf{f}(\mathbf{x})$ is contained in two cell arrays $H$ and $T$. Entries of $H$ are $L_i \times 1$ matrices (column vectors) of coefficients by monomials in $i$-th line of $\mathbf{f}(\mathbf{x})$, where $L_i$ is a number of terms in $i$-th line. Entries of $T$ are $L_i \times M$ matrices containing powers of variables in each monomial, ordered degree-lexicographically.
 
 On the first stage of the algorithm, for each line, full matrices $H_i$ and $T_i$ are created, containing all possible variants of powers up to $d_{max}$. Example of full degree-lexicographic ordering $\sigma$ is shown in the left of the figure, and example of the Lorenz system represented in such a way is given in the right of the figure. 
 
