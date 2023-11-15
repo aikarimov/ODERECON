@@ -32,14 +32,14 @@ Then, we can solve this reconstructed system with a standard matlab solver like 
 ## Installation
 Download a zip file or via git, and then add the ABM_LSM_Optim directory to your search path:
 
-```
+```matlab
 >> addpath('C:\Users\...\Downloads\ABM_LSM_Optim')  
 >> savepath
 ```
 ## How to use
 
 Let us find equations of the Lorenz system. First, generate a full trajectory with a stepsize 0.01 from the initial point $(0.1,0,-0.1)^\top$.
-```
+```matlab
 %simulate Lorenz system
 Tmax = 45;
 h = 0.01;
