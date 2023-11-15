@@ -9,7 +9,7 @@ and we have a number of sample points of the trajectiory $\mathbf{x}(t_i)$, but 
 
 Suppose, every line of a function $\mathbf{f}(\mathbf{x})$ is a sum of monomials with coefficients, like
 
-$$f(\mathbf{x}) = 2x + 3y^2 + 17yz \dots, $$
+$$f_j(\mathbf{x}) = 2x + 3y^2 + 17yz \dots, $$
 
 where $\mathbf{x} = (x,y,z, \dots) ^\top$ is a phase vector, any combination of its entries $x,y^2,yz$ is a monomial, and $2,3,17$ are coefficients. Then, we can use ABM_LSM_Optim to find $\mathbf{f}(\mathbf{x})$ in such a form.
 
