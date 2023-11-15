@@ -17,13 +17,13 @@ For example, we have a recorded three-dimensional trajectory $\mathbf{x} = (x,y,
 
 ![Fig1](https://github.com/aikarimov/ABM_LSM_Optim/blob/main/scheme.drawio.png)
 
-We randomly select some sample points, shown gree-yellow in the middle pane, and reconstruct sparse, readable equations of the system using a function `PolyRegression`, obtaining:
+We randomly select some sample points, shown green-yellow in the middle pane, and reconstruct sparse, readable equations of the system using a function `PolyRegression`, obtaining:
 
 $$\begin{cases}
 \begin{aligned}
-& \dot{\mathbf{x}} = -10x + 10y \\
-& \dot{\mathbf{y}} = 28x - y - xz\\
-& \dot{\mathbf{z}} = -2.6667z - xy\\
+& \dot{x} = -10x + 10y \\
+& \dot{y} = 28x - y - xz\\
+& \dot{z} = -2.6667z - xy\\
 \end{aligned}
 \end{cases}$$
 
