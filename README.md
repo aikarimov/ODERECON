@@ -5,11 +5,17 @@ This repository contains codes for reconstructing dynamical systems using the le
 
 Suppose, we find a description of a continuous dynamical system in a form of an autonomous odrinary differential equation
 $$\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x}),$$
-and a number of sample points of the trajectiory $\mathbf{x}(t_i)$ is known, but the mathematical description of a derivative function $\mathbf{f}(\mathbf{x})$ is not. For example, we have a recorded  three-dimensional trajectory $\mathbf{x} = (x,y,z)^\top$ as in the left pane below, shown blue. 
+and we have a number of sample points of the trajectiory $\mathbf{x}(t_i)$, but the mathematical description of the function $\mathbf{f}(\mathbf{x})$ is unknown. So, the problem is to find it. Suppose, every line of a function $\mathbf{f}(\mathbf{x})$ is a sum of monomials with coefficients, like
+
+$$f_x = 2x + 3y^2 + 17yz \dots, $$
+
+where $x,y^2,yz$ are monomials, and $2,3,17$ are coefficients. Then, we can use ABM_LSM_Optim to find $\mathbf{f}(\mathbf{x})$ in such a form.
+
+For example, we have a recorded  three-dimensional trajectory $\mathbf{x} = (x,y,z)^\top$ as in the left pane below, shown blue. 
 
 ![Fig1](https://github.com/aikarimov/ABM_LSM_Optim/blob/main/scheme.drawio.png)
 
-We randomly select some sample points, shown gree-yellow in the middle pane, and reconstruct equations of the system using them, obtaining:
+We randomly select some sample points, shown gree-yellow in the middle pane, and reconstruct sparse, readable equations of the system using a function `PolyRegression`, obtaining:
 
 $$\begin{cases}
 \begin{aligned}
@@ -19,7 +25,7 @@ $$\begin{cases}
 \end{aligned}
 \end{cases}$$
 
-
+Then, we can solve this reconstructed system with a standard matlab solver like `ode45`, using a function `oderecon` as a right-hand side function of a differential equation. The obtained trajectory is shown yellow in the right pane.
 
 ## Installation
 Download a zip file or via git, and then add the ABM_LSM_Optim directory to your search path:
