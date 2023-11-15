@@ -17,7 +17,7 @@ For example, we have a recorded three-dimensional trajectory $\mathbf{x} = (x,y,
 
 ![Fig1](https://github.com/aikarimov/ABM_LSM_Optim/blob/main/scheme.drawio.png)
 
-We randomly select some sample points, shown green-yellow in the middle pane, and reconstruct sparse, readable equations of the system using a function `PolyRegression`, obtaining:
+We randomly select some sample points, shown green-yellow in the middle pane, and reconstruct sparse, readable equations of the system, obtaining:
 
 $$\begin{cases}
 \begin{aligned}
@@ -27,7 +27,7 @@ $$\begin{cases}
 \end{aligned}
 \end{cases}$$
 
-Then, we can solve this reconstructed system with a standard matlab solver like `ode45`, using a function `oderecon` as a required function. The obtained trajectory is shown yellow in the right pane.
+Then, we can solve this reconstructed system with a standard matlab solver like `ode45`. The obtained trajectory is shown yellow in the right pane.
 
 ## Installation
 Download a zip file or via git, and then add the ABM_LSM_Optim directory to your search path:
@@ -36,6 +36,17 @@ Download a zip file or via git, and then add the ABM_LSM_Optim directory to your
 >> addpath('C:\Users\...\Downloads\ABM_LSM_Optim')  
 >> savepath
 ```
+## How to use
+
+Let us find equations of the Lorenz system. First, generate a full trajectory with a stepsize 0.01 from the initial point $(0.1,0,-0.1)^\top$.
+```
+%simulate Lorenz system
+Tmax = 45;
+h = 0.01;
+[t,y] = ode45(@Lorenz,[0:h:Tmax],[0.1,0,-0.1]); %solve ODE
+w = transpose(Lorenz(0,transpose(y))); %find derivatives
+```
+
 ## Algorithm
 
 The code ABM_LSM_Optim uses two basic algorithms: the least square method (LSM) for evaluating unknown coefficient of equations and the approximate Buchberger-Moller (ABM) algorithm for excluding vanishing monomials 
