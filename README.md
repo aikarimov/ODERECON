@@ -5,13 +5,15 @@ This repository contains codes for reconstructing dynamical systems using the le
 
 Suppose, we find a description of a continuous dynamical system in a form of an autonomous odrinary differential equation
 $$\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x}),$$
-and we have a number of sample points of the trajectiory $\mathbf{x}(t_i)$, but the mathematical description of the function $\mathbf{f}(\mathbf{x})$ is unknown. So, the problem is to find it. Suppose, every line of a function $\mathbf{f}(\mathbf{x})$ is a sum of monomials with coefficients, like
+and we have a number of sample points of the trajectiory $\mathbf{x}(t_i)$, but the mathematical description of the function $\mathbf{f}(\mathbf{x})$ is unknown. So, the problem is to find it. 
 
-$$f_x = 2x + 3y^2 + 17yz \dots, $$
+Suppose, every line of a function $\mathbf{f}(\mathbf{x})$ is a sum of monomials with coefficients, like
 
-where $x,y^2,yz$ are monomials, and $2,3,17$ are coefficients. Then, we can use ABM_LSM_Optim to find $\mathbf{f}(\mathbf{x})$ in such a form.
+$$f(\mathbf{x}) = 2x + 3y^2 + 17yz \dots, $$
 
-For example, we have a recorded  three-dimensional trajectory $\mathbf{x} = (x,y,z)^\top$ as in the left pane below, shown blue. 
+where $\mathbf{x} = (x,y,z, \dots) ^\top$ is a phase vector, any combination of its entries $x,y^2,yz$ is a monomial, and $2,3,17$ are coefficients. Then, we can use ABM_LSM_Optim to find $\mathbf{f}(\mathbf{x})$ in such a form.
+
+For example, we have a recorded three-dimensional trajectory $\mathbf{x} = (x,y,z)^\top$ as in the left pane below, shown blue. 
 
 ![Fig1](https://github.com/aikarimov/ABM_LSM_Optim/blob/main/scheme.drawio.png)
 
