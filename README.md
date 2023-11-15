@@ -101,8 +101,22 @@ First, the approximate Buchberger-Moller (ABM) algorithm runs, which excludes al
 ```matlab
 [G, O] = ApproxBM(Y, eps, sigma); %use approximate Buchberger-Moller algorithm
 ```
-Roughly speaking, vanishing means that the monomial takes values near zero (below a threshold `eps`), and keeping it in $T_i$ makes the further step poorly conditioned. 
-The function `ApproxBM` returns a border basis `G` which is not needed, and an order ideal `O` which is used as an initial guess for $T_i$.
+Roughly speaking, vanishing means that the monomial takes values near zero on the entire set $Y$, and keeping it in $T_i$ makes the problem of finding $H_i$ poorly conditioned. The function `ApproxBM` returns a border basis `G` and an order ideal `O`. The latter is used as an initial guess for $T_i$. Then, a simple trick is used to find $H_i$.
+
+In many parts of a code, a function `EvalPoly(hi,Y,tau)` is used to estimate a value returned by the function described with a pair $\hi = H_i$ and $\tau = T_i$ in a point or a set of points $Y$. If we substitute the identity matrix instead of $\hi$,the function will return a matrix $E$ containing values of all monomials in $\tau$ in every point of $Y$:
+
+```matlab
+E = EvalPoly(eye(L),X,tau);
+```
+
+This matrix is used for estimating $\hi$ via QR decomposition:
+
+```matlab
+[Q,R] = qr(E);
+Q1 = Q(:,1:L);
+R1 = R(1:L,1:L);
+hi = R1\(Q1'*V);
+```
 
 After that, a linear regression is performed with a variant of the least square method (LSM):
 
@@ -121,20 +135,7 @@ end
 
 The function `delMinorTerms(Y,V,O,eta)` evaluates coefficients by each monomial by LSM, and then evaluates the contribution of this monomial to the whole function value on the set $Y$. If `1/N*norm(V - EvalPoly(hi,Y,tau)) <= eta `, which means the normalized error between the values of the reconstructed function and real values is not greater than `eta`, the minor term (the term which contribution is the lowest) is removed from the regression.
 
-The function `EvalPoly(hi,Y,tau)` is used to estimate the required function described by a pair $\hi = H_i$ and $\tau = T_i$ in all points of $Y$. If we substitute the identity matrix instead of $hi$,the function will return a matrix $E$ containing values of all monomials in $tau$ in every point of $Y$:
 
-```matlab
-E = EvalPoly(eye(L),X,tau);
-```
-
-This matrix is used for estimating $\hi$ via QR decomposition:
-
-```matlab
-[Q,R] = qr(E);
-Q1 = Q(:,1:L);
-R1 = R(1:L,1:L);
-hi = R1\(Q1'*V);
-```
 
 ## Literature
 The ABM and delMinorTerms routines are written following pseudocodes provided in the work
