@@ -7,6 +7,7 @@ Suppose, we find a description of a continuous dynamical system in a form of an 
 $$\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x}),$$
 and the trajectiory (solution) $\mathbf{x}$ is known, but mathematical description of a derivative function $\mathbf{f}(\mathbf{x})$ is not. For example, 
 
+![Fig1](https://github.com/aikarimov/ABM_LSM_Optim/blob/main/scheme.drawio.png)
 
 
 ## Installation
