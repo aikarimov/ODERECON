@@ -8,11 +8,11 @@ $$\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x}).$$
 
 Let us have a number of sample points of the trajectiory $\mathbf{x}(t_i)$, but the mathematical description of the function $\mathbf{f}(\mathbf{x})$ is unknown. 
 
-Suppose, every line of a function $\mathbf{f}(\mathbf{x})$ is a sum of monomials with coefficients, like
+Suppose, every line of a function $\mathbf{f}(\mathbf{x})$ is a sum of monomials with coefficients, such as
 
 $$f_j(\mathbf{x}) = 2x + 3y^2 + 17yz \dots, $$
 
-where $\mathbf{x} = (x,y,z, \dots) ^\top$ is a phase vector, any combination of its entries $x,y^2,yz$ is a monomial, and $2,3,17$ are coefficients. Then, we can use ABM_LSM_Optim to find $\mathbf{f}(\mathbf{x})$ in such a form.
+where $\mathbf{x} = (x,y,z, \dots) ^\top$ is a phase vector. Any combination of its entries like $x,y^2,yz$ is called a monomial, and number by them like $2,3,17$ are coefficients. Then, we can use ABM_LSM_Optim to find $\mathbf{f}(\mathbf{x})$ in such a form.
 
 For example, we have a recorded three-dimensional trajectory $\mathbf{x} = (x,y,z)^\top$ as in the left pane below, shown blue. 
 
