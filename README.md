@@ -38,7 +38,7 @@ Download a zip file or via git, and then add the ABM_LSM_Optim directory to your
 ```
 ## How to use
 
-Let us find equations of the Lorenz system. First, generate a full trajectory with a stepsize 0.01 from the initial point $(0.1,0,-0.1)^\top$.
+Let us find equations of the Lorenz system. First, generate a full trajectory with a stepsize $h=0.01$ from the initial point $(0.1,0,-0.1)^\top$.
 ```matlab
 %simulate Lorenz system
 Tmax = 45;
@@ -46,7 +46,45 @@ h = 0.01;
 [t,y] = ode45(@Lorenz,[0:h:Tmax],[0.1,0,-0.1]); %solve ODE
 w = transpose(Lorenz(0,transpose(y))); %find derivatives
 ```
+Then, select $N$ random points
 
+```matlab
+%get uniformly distributed points from the simulated attractor
+N = 19; %data points
+M = 3; %dimension
+[Ns, ~] = size(y); %get the number of data point
+W = zeros(N,M); %sample derivatives
+Y = zeros(N,M); %sample phase coordinates
+
+for i = 1:N %take random points from trajectory
+    id = ceil(rand*Ns);  
+    W(i,:) = w(id,:); 
+    Y(i,:) = y(id,:);
+end
+```
+So, we have all we need to reverse the process back and obtain the Lorenz equations once again using ABM_LSM_Optim.
+
+First, we use a function `PolyRegression` to obtain two cell arrays $T$ and $H$, containing all necessary information about the reconstructed system (see section Algorithm for details).
+
+```matlab
+dmax = 2; % maximum power of the monomial
+[H,T] = PolyRegression(Y,W,dmax);
+```
+To show the reconstruction result, we use a function `prettyABM`:
+
+```matlab
+prettyABM(H,T)
+```
+Which outputs into the console
+```
+f1 = -10*x1 + 10*x2
+f2 = 28*x1 - x2 - x1*x3
+f3 = -2.6667*x3 + x1*x2
+```
+Then, we simulate the results using a fjunction `oderecon`
+```matlab
+[~,y] = ode45(@(t,x)oderecon(H,T,t,x),[0:h:Tmax],[0.1,0,-0.1]); %solve ODE
+```
 ## Algorithm
 
 The code ABM_LSM_Optim uses two basic algorithms: the least square method (LSM) for evaluating unknown coefficient of equations and the approximate Buchberger-Moller (ABM) algorithm for excluding vanishing monomials 
