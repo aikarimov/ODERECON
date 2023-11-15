@@ -92,19 +92,17 @@ On the first stage of the algorithm, for each line, full matrices $H_i$ and $T_i
 
 ![Fig2](https://github.com/aikarimov/ABM_LSM_Optim/blob/main/handt.drawio.png)
 
-Ordering $\sigma$ is generated with the function `deglexord(dmin,dmax,M)`. Having set $d_{min} = 0, d_{max} = 2, M = 3$ we obtain a 10-row matrix shown in the figure. Sparse reconstruction of the equations needs eliminating all excessive terms in $T_i$ and $H_i$ and setting correct values to entries of $H_i$. 
+Ordering $\sigma$ is generated with the function `deglexord(dmin,dmax,M)`. Sparse reconstruction of the equations needs eliminating all excessive terms in $T_i$ and $H_i$ and setting correct values to entries of $H_i$. 
 
-Suppose, we have a trajectory $Y$ which is represented as $N \times M$ matrix, with $N$ sample points and $M$ dimensions, and a derivative to the trajectory $W = \dots{Y}$ which is also represented as $N \times M$ matrix. 
+Suppose, we have a trajectory $Y$ which is represented as $N \times M$ matrix, with $N$ sample points and $M$ dimensions, and a derivative to the trajectory $W = \dot{Y}$ which is also represented as $N \times M$ matrix. 
 
-First, the approximate Buchberger-M$\"o$ller (ABM) algorithm is run first, which excludes all monomials in $T_i$ that vanish on a given trajectory
+First, the approximate Buchberger-Moller (ABM) algorithm is run, which excludes all monomials in $T_i$ that vanish on a given set $Y$:
 
 ```matlab
 [~, O] = ApproxBM(Y, eps, sigma); %use approximate Buchberger-Moller algorithm
 ```
+This returns a border basis `O` which is then used as an initial guess for each $T_i$. 
 
-the approximate Buchberger-Moller (ABM) 
-
-The code ABM_LSM_Optim uses two basic algorithms: the least square method (LSM) for evaluating unknown coefficient of equations and algorithm for excluding vanishing monomials.
 
 ## Literature
 The ABM and delMinorTerms routines are written following pseudocodes provided in the work
