@@ -85,10 +85,25 @@ Then, we simulate the results using a function `oderecon`:
 ```
 ## Algorithm
 
-First, introduce some formalism. Representation of an arbitrary function $\mathbf{\mathbf{x}}$ is contained in
+First, introduce some formalism. Representation of an arbitrary $M$-dimensional function $\mathbf{f{\mathbf{x}}$ is contained in two cell arrays $H$ and $T$. Entries of $H$ are $L_i \times 1$ matrices (column vectors) of coefficients by monomials in $i$-th line of $\mathbf{f{\mathbf{x}}$, where $L_i$ is a number of terms in $i$-th line. Entries of $T$ are $L_i \times M$ matrices containing powers of variables in each monomial, ordered degree-lexicographically.
+
+On the first stage of the algorithm, for each line, full matrices $H_i$ and $T_i$ are created, containing all possible variants of powers up to $d_{max}$. Example of full degree-lexicographic ordering $\sigma$ is shown in the left of the figure, and example of the Lorenz system represented in such a way is given in the right of the figure. 
 
 ![Fig2](https://github.com/aikarimov/ABM_LSM_Optim/blob/main/handt.drawio.png)
-The code ABM_LSM_Optim uses two basic algorithms: the least square method (LSM) for evaluating unknown coefficient of equations and the approximate Buchberger-Moller (ABM) algorithm for excluding vanishing monomials.
+
+Ordering $\sigma$ is generated with the function `deglexord(dmin,dmax,M)`. Having set $d_{min} = 0, d_{max} = 2, M = 3$ we obtain a 10-row matrix shown in the figure. Sparse reconstruction of the equations needs eliminating all excessive terms in $T_i$ and $H_i$ and setting correct values to entries of $H_i$. 
+
+Suppose, we have a trajectory $Y$ which is represented as $N \times M$ matrix, with $N$ sample points and $M$ dimensions, and a derivative to the trajectory $W = \dots{Y}$ which is also represented as $N \times M$ matrix. 
+
+First, the approximate Buchberger-M$\"o$ller (ABM) algorithm is run first, which excludes all monomials in $T_i$ that vanish on a given trajectory
+
+```matlab
+[~, O] = ApproxBM(Y, eps, sigma); %use approximate Buchberger-Moller algorithm
+```
+
+the approximate Buchberger-Moller (ABM) 
+
+The code ABM_LSM_Optim uses two basic algorithms: the least square method (LSM) for evaluating unknown coefficient of equations and algorithm for excluding vanishing monomials.
 
 ## Literature
 The ABM and delMinorTerms routines are written following pseudocodes provided in the work
