@@ -62,7 +62,7 @@ for i = 1:N %take random points from trajectory
     Y(i,:) = y(id,:);
 end
 ```
-Then, we obtain the Lorenz equations from these 19 points using ABM_LSM_Optim. First, we use a function `PolyRegression` to obtain two cell arrays $T$ and $H$, containing all necessary information about the reconstructed system (see section Algorithm for details).
+Then, we obtain the Lorenz equations from these 19 points using ABM_LSM_Optim. First, we use a function `PolyRegression` to obtain two cell arrays $T$ and $H$, containing all necessary information about the reconstructed system (see Algorithm for details):
 
 ```matlab
 dmax = 2; % maximum power of the monomial
