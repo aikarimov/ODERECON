@@ -189,8 +189,9 @@ Reconstructing the Lorenz attractor given only one state variable $z$. For bette
 opts = odeset('RelTol',1e-13,'AbsTol',1e-15);
 [t,y] = ode113(@Lorenz2,[0:h:Tmax],[0.1,0,-0.1],opts); %solve ODE
 ```
-Once we have only $z$ variable, we should reconstruct two other synthetic variables. Here, it is done via numerical integration of $z$ using Bool's rule:
+Once we have only $z$ variable, we must reconstruct two other variables. Usually, a direct application of Takens's theorem is performed, and the system is reconstructed in delay variables. Alternatively, derivatives are also often used. Here, we reconstruct two missing variables via numerical integration of $z$ using Bool's rule:
 ```matlab
+val = u(:,3); %3rd variable
 [iv, ind] = integrate_bool(val,0,h);
 [iv2, ind2] = integrate_bool(iv,0.1,4*h);
 ```
@@ -205,6 +206,19 @@ f2 =  x3
 f3 = 720*x1 - 29.3333*x2 - 13.6667*x3 + 11*x1^-1*x2^2 + x1^-1*x2*x3 - 10*x1^3 - x1^2*x2
 ```
 For more detail, we refer to the ![original publication](https://doi.org/10.3390/math8020300).
+
+### Example_Mem3var
+
+Reconstructing B. Muthuswamy’s circuit equations from a three-dimensional data series, with one missing state variable. The result of the code is
+```
+f1 =  x2
+f2 = 24519*x2 + 73530*x3 - 0.086055*x1^2*x2
+f3 = 7353*x2 - 7353*x3 - 14700000*x4
+f4 = 55.55*x3
+```
+For more detail, we also refer to the ![original publication](https://doi.org/10.3390/math8020300).
+
+### Example_Mem3var
 
 ## Literature
 The `ApproxBM` and `delMinorTerms` functions are written following pseudocodes provided in the work
