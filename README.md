@@ -153,7 +153,7 @@ w = transpose(FHN(0,transpose(y)));
 ```
 You can change 1 to 0 in the following code line:
 ```matlab
-derivativecalc = 1; % Set 1 to find derivatives analytically, set 0 to find derivatives numerically. Check out how this affects accuracy
+derivativecalc = 1; % Set 1 to find derivatives analytically, set 0 to find derivatives numerically
 ```
 After that, the derivative will be found numerically with a 4-th order finite difference derivative:
 ```matlab
@@ -218,8 +218,22 @@ f4 = 55.55*x3
 ```
 For more detail, we also refer to the [original publication](https://doi.org/10.3390/math8020300).
 
-### Example_Mem3var
+### Example_RingTest
 
+This example shows how ODERECON deals with a conservative system. The output of the code is
+```
+f1 = -9.9865e-05*x2
+f2 = 1.0006*x1
+```
+The inaccurate coefficients are due to numerical differentiation `dX = diff(X,1,1)`. Replacing it with the following code:
+```matlab
+dX = diff4(X,tspan)
+```
+results in accurate equations:
+```
+f1 = -0.0001*x2
+f2 =  x1
+```
 ## Literature
 The `ApproxBM` and `delMinorTerms` functions are written following pseudocodes provided in the work
 
