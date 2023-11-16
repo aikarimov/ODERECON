@@ -63,7 +63,7 @@ for i = 1:N %take random points from trajectory
     Y(i,:) = y(id,:);
 end
 ```
-After that, we obtain the Lorenz equations from these $N$ toy data points using ODERECON. First, we use a function `PolyRegression` to obtain two cell arrays $T$ and $H$, containing all necessary information about the reconstructed system (see the section [Algorithm](https://github.com/aikarimov/ODERECON/tree/main#algorithm) for details):
+After that, we can obtain the Lorenz equations from these $N$ toy data points using ODERECON. First, we use a function `PolyRegression` to obtain two cell arrays $T$ and $H$, containing all necessary information about the reconstructed system (see the section [Algorithm](https://github.com/aikarimov/ODERECON/tree/main#algorithm) for details):
 
 ```matlab
 dmax = 2; % maximum power of the monomial
@@ -139,6 +139,31 @@ Optionally, iteratively reweighted least squares (IRLS) method can be used inste
 
 The described algorithm is implemented in the function `PolyRegression`. 
 
+## Examples
+A number of examples with use cases is provided
+### Example_FHN
+This example illustrates reconstructing FitzHugh-Nagumo system from 20 random data points. Running code as is, we obtain the following problem solution:
+```
+f1 =  x2
+f2 = - x1 + 4*x2 - x2^3
+```
+This result is obtained when a derivative point set $W$ is obtained analytically:
+```matlab
+w = transpose(FHN(0,transpose(y)));
+```
+You can change 1 to 0 in the following code line:
+```matlab
+derivativecalc = 1; % Set 1 to find derivatives analytically, set 0 to find derivatives numerically. Check out how this affects accuracy
+```
+After that, the derivative will be found numerically with a 4-th order finite difference derivative:
+```matlab
+w = diff4(y,t); 
+```
+The result will lose its accuracy showing high sensitivity of the algorithm to numerical and truncation errors:
+```
+f1 = 0.99996*x2
+f2 = -0.99811*x1 + 3.9906*x2 - 0.99748*x2^3
+```
 ## Literature
 The `ApproxBM` and `delMinorTerms` functions are written following pseudocodes provided in the work
 
