@@ -39,7 +39,7 @@ Download a zip file or via git, and then add the ODERECON directory to your sear
 ```
 ## How to use
 
-Let us find equations of the Lorenz system. First, generate a full trajectory with a stepsize $h=0.01$ from the initial point $(0.1,0,-0.1)^\top$:
+Let us find the equations of the Lorenz system. First, generate a full trajectory with a stepsize $h=0.01$ from the initial point $(0.1,0,-0.1)^\top$:
 ```matlab
 %simulate Lorenz system
 Tmax = 45;
