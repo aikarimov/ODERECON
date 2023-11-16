@@ -128,7 +128,7 @@ T = cell(1,M);
 for i = 1:M
     V = W(:,i);
     [chi,tau] = delMinorTerms(Y,V,O,eta); %get equation and basis    
-    H{1,i} = hi;
+    H{1,i} = chi;
     T{1,i} = tau;
 end
 ```
@@ -140,7 +140,7 @@ Optionally, iteratively reweighted least squares (IRLS) method can be used inste
 The described algorithm is implemented in the function `PolyRegression`. 
 
 ## Literature
-The ABM and delMinorTerms routines are written following pseudocodes provided in the work
+The `ApproxBM` and `delMinorTerms` functions are written following pseudocodes provided in the work
 
 Kera, H.; Hasegawa, Y. Noise-tolerant algebraic method for reconstruction of nonlinear dynamical systems. Nonlinear Dynamics 2016, 85(1), 675-692,  https://doi.org/10.1007/s11071-016-2715-3
 
