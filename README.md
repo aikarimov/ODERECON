@@ -205,7 +205,7 @@ f1 =  x2
 f2 =  x3
 f3 = 720*x1 - 29.3333*x2 - 13.6667*x3 + 11*x1^-1*x2^2 + x1^-1*x2*x3 - 10*x1^3 - x1^2*x2
 ```
-For more detail, we refer to the ![original publication](https://doi.org/10.3390/math8020300).
+For more detail, we refer to the [original publication](https://doi.org/10.3390/math8020300).
 
 ### Example_Mem3var
 
@@ -216,7 +216,7 @@ f2 = 24519*x2 + 73530*x3 - 0.086055*x1^2*x2
 f3 = 7353*x2 - 7353*x3 - 14700000*x4
 f4 = 55.55*x3
 ```
-For more detail, we also refer to the ![original publication](https://doi.org/10.3390/math8020300).
+For more detail, we also refer to the [original publication](https://doi.org/10.3390/math8020300).
 
 ### Example_Mem3var
 
