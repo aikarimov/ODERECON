@@ -103,19 +103,19 @@ First, the approximate Buchberger-Moller (ABM) algorithm runs, which excludes al
 ```
 Roughly speaking, vanishing means that the monomial takes values near zero on the entire set $Y$, and keeping it in $T_i$ makes the problem of finding $H_i$ poorly conditioned. The function `ApproxBM` returns a border basis as the first unused argument, and an order ideal `O`. The latter is utilized as an initial guess for $T_i$. 
 
-Then, a time comes for a simple trick to find $H_i$. In many parts of a code, a function `EvalPoly(hi,Y,tau)` is used to estimate a value returned by the function described with a pair $\hi = H_i$ and $\tau = T_i$ in a point, or a set of points $Y$. If we substitute the identity matrix instead of $\hi$,the function `EvalPoly` returns a matrix $E$ containing values of all monomials in $\tau$ in every point of $Y$:
+Then, a time comes for a simple trick to find $H_i$. In many parts of a code, a function `EvalPoly(chi,Y,tau)` is used to estimate a value returned by the function described with a pair $\chi = H_i$ and $\tau = T_i$ in a point, or a set of points $Y$. If we substitute the identity matrix instead of $\chi$,the function `EvalPoly` returns a matrix $E$ containing values of all monomials in $\tau$ in every point of $Y$:
 
 ```matlab
 E = EvalPoly(eye(L),X,tau);
 ```
 
-This matrix is used for estimating $\hi$ via LSM using QR decomposition:
+This matrix is used for estimating $\chi$ via LSM using QR decomposition:
 
 ```matlab
 [Q,R] = qr(E);
 Q1 = Q(:,1:L);
 R1 = R(1:L,1:L);
-hi = R1\(Q1'*V);
+chi = R1\(Q1'*V);
 ```
 
 If we do not need a sparse regression, the code stops its work. Otherwise, a function `delMinorTerms` runs for each dimension:
@@ -127,13 +127,13 @@ T = cell(1,M);
 %reconstruct each equation
 for i = 1:M
     V = W(:,i);
-    [hi,tau] = delMinorTerms(Y,V,O,eta); %get equation and basis    
+    [chi,tau] = delMinorTerms(Y,V,O,eta); %get equation and basis    
     H{1,i} = hi;
     T{1,i} = tau;
 end
 ```
 
-The function `delMinorTerms(Y,V,O,eta)` estimates coefficients by each monomial as shown before, and then evaluates the contribution of this monomial to the whole function on the set $Y$. While `1/N*norm(V - EvalPoly(hi,Y,tau)) <= eta `, i.e. the normalized error between the values of the reconstructed function and real values is not greater than `eta`, the current term which contribution is the lowest is removed from the regression, new $\hi, \tau$ are found, and the procedure is repeated. In the end, the regression becomes sparce.
+The function `delMinorTerms(Y,V,O,eta)` estimates coefficients by each monomial as shown before, and then evaluates the contribution of this monomial to the whole function on the set $Y$. While `1/N*norm(V - EvalPoly(chi,Y,tau)) <= eta `, i.e. the normalized error between the values of the reconstructed function and real values is not greater than `eta`, the current term which contribution is the lowest is removed from the regression, new $\chi, \tau$ are found, and the procedure is repeated. In the end, the regression becomes sparce.
 
 Optionally, iteratively reweighted least squares (IRLS) method can be used instead of an ordinary LSM, or the LASSO regression, which in some cases gives more sparse solution.
 
