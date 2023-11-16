@@ -18,7 +18,7 @@ For example, we have a recorded three-dimensional trajectory $\mathbf{x} = (x,y,
 
 ![Fig1](https://github.com/aikarimov/ABM_LSM_Optim/blob/main/scheme.drawio.png)
 
-We randomly select some sample points, shown green-yellow in the middle pane, and reconstruct sparse, readable equations of the system, obtaining:
+We randomly select some sample points, shown green-yellow in the middle pane, and reconstruct sparse, readable equations of the system:
 
 $$\begin{cases}
 \begin{aligned}
@@ -28,7 +28,7 @@ $$\begin{cases}
 \end{aligned}
 \end{cases}$$
 
-Then, we can solve this reconstructed system with a standard matlab solver like `ode45`. The obtained trajectory is shown yellow in the right pane.
+Then, we can solve this reconstructed system with a standard matlab solver like `ode45`. Such a solution is shown yellow in the right pane.
 
 ## Installation
 Download a zip file or via git, and then add the ABM_LSM_Optim directory to your search path:
@@ -63,7 +63,7 @@ for i = 1:N %take random points from trajectory
     Y(i,:) = y(id,:);
 end
 ```
-After that, we obtain the Lorenz equations from these 19 points using ABM_LSM_Optim. First, we use a function `PolyRegression` to obtain two cell arrays $T$ and $H$, containing all necessary information about the reconstructed system (see the section [Algorithm](https://github.com/aikarimov/ABM_LSM_Optim/tree/main#algorithm) for details):
+After that, we obtain the Lorenz equations from these $N$ toy data points using ABM_LSM_Optim. First, we use a function `PolyRegression` to obtain two cell arrays $T$ and $H$, containing all necessary information about the reconstructed system (see the section [Algorithm](https://github.com/aikarimov/ABM_LSM_Optim/tree/main#algorithm) for details):
 
 ```matlab
 dmax = 2; % maximum power of the monomial
