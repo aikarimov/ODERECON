@@ -133,7 +133,7 @@ for i = 1:M
 end
 ```
 
-The function `delMinorTerms(Y,V,O,eta)` estimates coefficients by each monomial as shown before, and then evaluates the contribution of this monomial to the whole function on the set $Y$. While `1/N*norm(V - EvalPoly(chi,Y,tau)) <= eta `, i.e. the normalized error between the values of the reconstructed function and real values is not greater than `eta`, the current term which contribution is the lowest is removed from the regression, new $\chi, \tau$ are found, and the procedure is repeated. In the end, the regression becomes sparce.
+The function `delMinorTerms(Y,V,O,eta)` estimates coefficients by each monomial as shown before, and then evaluates the contribution of this monomial to the whole function on the set $Y$. While `1/N*norm(V - EvalPoly(chi,Y,tau)) <= eta `, i.e. the normalized error between the values of the reconstructed function and real values is not greater than `eta`, the current term which contribution is the lowest is removed from the regression, new $\chi, \tau$ are found, and the procedure is repeated. In the end, the regression becomes sparse.
 
 Optionally, iteratively reweighted least squares (IRLS) method can be used instead of an ordinary LSM, or the LASSO regression, which in some cases gives more sparse solution.
 
