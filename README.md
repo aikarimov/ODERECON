@@ -164,6 +164,48 @@ The result will lose its accuracy showing high sensitivity of the algorithm to n
 f1 = 0.99996*x2
 f2 = -0.99811*x1 + 3.9906*x2 - 0.99748*x2^3
 ```
+Adding strict accuracy options for the ode solver and replacing the `ode45` solver to the more accurate `ode78` or `ode113` improves this result, please, check it out.
+### Example_Linear2
+
+This code illustrates reconstruction of a stable 2-dimensional linear system with exponential decay. Derivatives are found analytically. The output of the code is
+```
+f1 =  x2
+f2 = - x1 - 0.3*x2
+```
+
+### Example_Lorenz
+
+Reconstructing the classical Lorenz attractor with a workflow shown earlier. The result of the code is
+```
+f1 = -10*x1 + 10*x2
+f2 = 28*x1 - x2 - x1*x3
+f3 = -2.6667*x3 + x1*x2
+```
+
+### Example_Lorenz_1var
+
+Reconstructing the Lorenz attractor given only one state variable $z$. For better results, `ode113` solver is used, and additional options for tolerances are added:
+```matlab
+opts = odeset('RelTol',1e-13,'AbsTol',1e-15);
+[t,y] = ode113(@Lorenz2,[0:h:Tmax],[0.1,0,-0.1],opts); %solve ODE
+```
+Once we have only $z$ variable, we should reconstruct two other synthetic variables. Here, it is done via numerical integration of $z$ using Bool's rule:
+```matlab
+[iv, ind] = integrate_bool(val,0,h);
+[iv2, ind2] = integrate_bool(iv,0.1,4*h);
+```
+We can find analytically that the resulting formula should contain negative powers, so we generate a degree-lexicographic ordering starting from $-1$:
+```matlab
+sigma = deglexord(-1,3,3);
+```
+Then, we do not use `PolyRegression` but explicitly apply `delMinorTerms` to each equation to find $H$ and $T$. This is done just for illustration, and all that bulcky code can be rewritten with `PolyRegression`. The result of the code is
+```
+f1 =  x2
+f2 =  x3
+f3 = 720*x1 - 29.3333*x2 - 13.6667*x3 + 11*x1^-1*x2^2 + x1^-1*x2*x3 - 10*x1^3 - x1^2*x2
+```
+For more detail, we refer to the ![original publication](https://doi.org/10.3390/math8020300).
+
 ## Literature
 The `ApproxBM` and `delMinorTerms` functions are written following pseudocodes provided in the work
 
