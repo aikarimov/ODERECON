@@ -1,4 +1,4 @@
-# ABM_LSM_Optim
+# ODERECON
 This repository contains codes for reconstructing dynamical systems using the least square method. 
 
 ## Overview
@@ -12,11 +12,11 @@ Suppose, every line of a function $\mathbf{f}(\mathbf{x})$ is a sum of monomials
 
 $$f_j(\mathbf{x}) = 2x + 3y^2 + 17yz \dots, $$
 
-where $\mathbf{x} = (x,y,z, \dots) ^\top$ is a phase vector. Any combination of its entries like $x,y^2,yz$ is called a monomial, and numbers by them like $2,3,17$ are coefficients. In this case, we can use ABM_LSM_Optim to find $\mathbf{f}(\mathbf{x})$.
+where $\mathbf{x} = (x,y,z, \dots) ^\top$ is a phase vector. Any combination of its entries like $x,y^2,yz$ is called a monomial, and numbers by them like $2,3,17$ are coefficients. In this case, we can use ODERECON to find $\mathbf{f}(\mathbf{x})$.
 
 For example, we have a recorded three-dimensional trajectory $\mathbf{x} = (x,y,z)^\top$ as in the left pane below, shown blue. 
 
-![Fig1](https://github.com/aikarimov/ABM_LSM_Optim/blob/main/scheme.drawio.png)
+![Fig1](https://github.com/aikarimov/ODERECON/blob/main/scheme.drawio.png)
 
 We randomly select some sample points, shown green-yellow in the middle pane, and reconstruct sparse, readable equations of the system:
 
@@ -31,10 +31,10 @@ $$\begin{cases}
 Then, we can solve this reconstructed system with a standard matlab solver like `ode45`. Such a solution is shown yellow in the right pane.
 
 ## Installation
-Download a zip file or via git, and then add the ABM_LSM_Optim directory to your search path:
+Download a zip file or via git, and then add the ODERECON directory to your search path:
 
 ```matlab
->> addpath('C:\Users\...\Downloads\ABM_LSM_Optim')  
+>> addpath('C:\Users\...\Downloads\ODERECON')  
 >> savepath
 ```
 ## How to use
@@ -63,7 +63,7 @@ for i = 1:N %take random points from trajectory
     Y(i,:) = y(id,:);
 end
 ```
-After that, we obtain the Lorenz equations from these $N$ toy data points using ABM_LSM_Optim. First, we use a function `PolyRegression` to obtain two cell arrays $T$ and $H$, containing all necessary information about the reconstructed system (see the section [Algorithm](https://github.com/aikarimov/ABM_LSM_Optim/tree/main#algorithm) for details):
+After that, we obtain the Lorenz equations from these $N$ toy data points using ODERECON. First, we use a function `PolyRegression` to obtain two cell arrays $T$ and $H$, containing all necessary information about the reconstructed system (see the section [Algorithm](https://github.com/aikarimov/ODERECON/tree/main#algorithm) for details):
 
 ```matlab
 dmax = 2; % maximum power of the monomial
@@ -90,7 +90,7 @@ First, introduce some formalism. Representation of an arbitrary $M$-dimensional 
 
 On the first stage of the algorithm, for each line, full matrices $T_i$ are created, containing all possible variants of powers up to $d_{max}$. Example of full degree-lexicographic ordering $\sigma$ is shown in the left of the figure, and example of the Lorenz system represented in such a way is given in the right of the figure. 
 
-![Fig2](https://github.com/aikarimov/ABM_LSM_Optim/blob/main/handt.drawio.png)
+![Fig2](https://github.com/aikarimov/ODERECON/blob/main/handt.drawio.png)
 
 Ordering $\sigma$ is generated with the function `deglexord(dmin,dmax,M)`. Sparse reconstruction of the equations needs eliminating all excessive terms in $T_i$ and setting correct values to entries of $H_i$. 
 
