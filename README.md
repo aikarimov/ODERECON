@@ -39,7 +39,7 @@ Download a zip file or via git, and then add the ODERECON directory to your sear
 ```
 ## How to use
 
-Let us find equations of the Lorenz system. First, generate a full trajectory with a stepsize $h=0.01$ from the initial point $(0.1,0,-0.1)^\top$:
+Let us find the equations of the Lorenz system. First, generate a full trajectory with a stepsize $h=0.01$ from the initial point $(0.1,0,-0.1)^\top$:
 ```matlab
 %simulate Lorenz system
 Tmax = 45;
@@ -133,7 +133,7 @@ for i = 1:M
 end
 ```
 
-The function `delMinorTerms(Y,V,O,eta)` estimates coefficients by each monomial as shown before, and then evaluates the contribution of this monomial to the whole function on the set $Y$. While `1/N*norm(V - EvalPoly(chi,Y,tau)) <= eta `, i.e. the normalized error between the values of the reconstructed function and real values is not greater than `eta`, the current term which contribution is the lowest is removed from the regression, new $\chi, \tau$ are found, and the procedure is repeated. In the end, the regression becomes sparce.
+The function `delMinorTerms(Y,V,O,eta)` estimates coefficients by each monomial as shown before, and then evaluates the contribution of this monomial to the whole function on the set $Y$. While `1/N*norm(V - EvalPoly(chi,Y,tau)) <= eta `, i.e. the normalized error between the values of the reconstructed function and real values is not greater than `eta`, the current term which contribution is the lowest is removed from the regression, new $\chi, \tau$ are found, and the procedure is repeated. In the end, the regression becomes sparse.
 
 Optionally, iteratively reweighted least squares (IRLS) method can be used instead of an ordinary LSM, or the LASSO regression, which in some cases gives more sparse solution.
 
@@ -153,7 +153,7 @@ w = transpose(FHN(0,transpose(y)));
 ```
 You can change 1 to 0 in the following code line:
 ```matlab
-derivativecalc = 1; % Set 1 to find derivatives analytically, set 0 to find derivatives numerically. Check out how this affects accuracy
+derivativecalc = 1; % Set 1 to find derivatives analytically, set 0 to find derivatives numerically
 ```
 After that, the derivative will be found numerically with a 4-th order finite difference derivative:
 ```matlab
@@ -218,8 +218,22 @@ f4 = 55.55*x3
 ```
 For more detail, we also refer to the [original publication](https://doi.org/10.3390/math8020300).
 
-### Example_Mem3var
+### Example_RingTest
 
+This example shows how ODERECON deals with a conservative system. The output of the code is
+```
+f1 = -9.9865e-05*x2
+f2 = 1.0006*x1
+```
+The inaccurate coefficients are due to numerical differentiation `dX = diff(X,1,1)`. Replacing it with the following code:
+```matlab
+dX = diff4(X,tspan)
+```
+results in accurate equations:
+```
+f1 = -0.0001*x2
+f2 =  x1
+```
 ## Literature
 The `ApproxBM` and `delMinorTerms` functions are written following pseudocodes provided in the work
 
