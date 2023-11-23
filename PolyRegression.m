@@ -3,19 +3,19 @@ function [H, Tau, err] = PolyRegression(varargin)
 %get uniformly distributed points from data
 %   Syntax:
 %
-%   [H, Tau] = POLYREGRESSION(Y, W, dmax)
+%   [H, Tau, err] = POLYREGRESSION(Y, W, dmax)
 %
-%   [H, Tau] = POLYREGRESSION(Y, W, O)
+%   [H, Tau, err] = POLYREGRESSION(Y, W, O)
 %
-%   [H, Tau] = POLYREGRESSION(Y, W, dmin, dmax)
+%   [H, Tau, err] = POLYREGRESSION(Y, W, dmin, dmax)
 %
-%   [H, Tau] = POLYREGRESSION(Y, W, dmin, dmax, eta)
+%   [H, Tau, err] = POLYREGRESSION(Y, W, dmin, dmax, eta)
 %
-%   [H, Tau] = POLYREGRESSION(Y, W, dmin, dmax, eta, eps)
+%   [H, Tau, err] = POLYREGRESSION(Y, W, dmin, dmax, eta, eps)
 %
-%   [H, Tau] = POLYREGRESSION(Y, W, dmin, dmax, eta, eps, deleteminor)
+%   [H, Tau, err] = POLYREGRESSION(Y, W, dmin, dmax, eta, eps, deleteminor)
 %
-%   [H, Tau] = POLYREGRESSION(Y, W, dmin, dmax, eta, eps, deleteminor, useirls)
+%   [H, Tau, err] = POLYREGRESSION(Y, W, dmin, dmax, eta, eps, deleteminor, useirls)
 %
 %   Input:
 %
@@ -34,7 +34,7 @@ function [H, Tau, err] = PolyRegression(varargin)
 %   H - cell array of 1 x M dimension, each cell contains column vector of coefficients by monomials;
 %   Tau - cell array of 1 x M dimension, each cell contains T x M matrix
 %   where each row corresponts to the monomial, T is th number of monomials
-
+%   err - error in polynomial estimation
 deleteminor = 1;
 useirls = 0;
 
@@ -102,7 +102,7 @@ H = cell(1,M);
 Tau = cell(1,M);
 
 err = 0; fsum = 0;
-V = W;
+Vs = W;
 %reconstruct each equation
 for i = 1:M
     [L, ~] = size(O);
@@ -126,14 +126,14 @@ for i = 1:M
     if deleteminor
         [hi,tau] = delMinorTerms(Y,W(:,i),O,eta,hi,1,0,useirls); %get equation and basis
     end
-    V(:,i) = EvalPoly(hi,Y,tau);
+    Vs(:,i) = EvalPoly(hi,Y,tau);
     H{1,i} = hi;
     Tau{1,i} = tau;
 end
 
 for i = 1:N
-    err = err + norm(V(i,:) - W(i,:)); %by point Y[i], estimate (dY_e - dY_actual)
-    fsum = fsum + norm(V(i,:));
+    err = err + norm(Vs(i,:) - W(i,:)); %by point Y[i], estimate (dY_e - dY_actual)
+    fsum = fsum + norm(Vs(i,:));
 end
 err = err/fsum;
 end
