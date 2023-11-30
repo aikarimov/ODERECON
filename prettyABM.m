@@ -6,12 +6,13 @@ function prettyABM(H,T)
 %   of coefficients by terms
 %   T is a cell array of size 1 x M, where M is dimension, containing basis
 %   terms obtained by delMinorTerms
-[~, M] = size(H);
+[~, M] = size(T);
 for i = 1:M %loop by number of functions
     str = ['f' , num2str(i), ' = ']; %string for entries
     h = H{1,i};
     t = T{1,i};
     [N, ~] = size(h); %number of terms
+    [~, Mt] = size(t);
     for j = 1:N %loop by number of terms
         flag1 = 0; %flag, if 1 then do not draw * before monomial
         if j > 1 %formatting of the line
@@ -42,7 +43,7 @@ for i = 1:M %loop by number of functions
                 end
             end
         end
-        for k = 1:M %in each term, display entries
+        for k = 1:Mt %in each term, display entries
             if t(j,k) ~= 0
                 if flag1
                     str = [str, ' x', num2str(k)]; %x1, x2, x3 ...
