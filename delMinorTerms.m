@@ -33,7 +33,6 @@ if nargin >= 4
     X = varargin{1,1}; [N, ~] = size(X);
     V = varargin{1,2};
     O = varargin{1,3}; [L, M] = size(O);
-    E = EvalPoly(eye(L),X,O);
     eta = varargin{1,4};
 end
 
@@ -45,7 +44,8 @@ if nargin >= 8
     irls = varargin{1,8};
 end
 
-if nargin == 4
+if nargin <= 4
+    E = EvalPoly(eye(L),X,O);
     if irls
         h = IRLS(E,V,X,O,eta,alp);
     else
@@ -53,13 +53,16 @@ if nargin == 4
     end
 end
 
-if nargin == 6
+if nargin >= 6
     deleteminor = varargin{1,6};
 end
 
-if nargin == 7
+if nargin >= 7
     alp = varargin{1,7};
 end
+
+
+
 
 T = O;
 htmp = h;
@@ -68,36 +71,45 @@ Ttmp = T;
 zeroingT = ones(L,1);
 reindex = 1:L;
 L0 = L;
-
-while 1/N*norm(V - E*htmp) <= eta && L > 1
+zeroingT0 = zeroingT;
+while 1/N*norm(V - EvalPoly(htmp,X,Ttmp)) <= eta && L > 1
     h = htmp;
     T = Ttmp;
     
     %find a minimal norm of the monomial in interpolation
-    [~, mink] = min(vecnorm(E * diag(htmp)));
+    minval = inf;
+    mink = 1;
+    for k = 1:L
+        t = zeros(L,1);
+        t(k) = h(k); %extract k-th monomial
+        tmp = norm(EvalPoly(t,X,T));
+        if tmp < minval
+            minval = tmp;
+            mink = k;
+        end
+    end
     
     %exclude mink-th element from T
+    zeroingT0 = zeroingT;
     if L > 1
         zeroingT(reindex(mink)) = 0;
         
         if mink > 1 && mink < L
             Ttmp = T([1:mink - 1,mink + 1:end],:);
             reindex = reindex([1:mink - 1,mink + 1:end]);
-            E = E(:,[1:mink - 1,mink + 1:end]);
         end
         if mink == L
             Ttmp = T(1:mink - 1,:);
             reindex = reindex(1:mink - 1);
-            E = E(:,1:mink - 1);
         end
         if mink == 1
             Ttmp = T(mink + 1:end,:);
             reindex = reindex(mink + 1:end);
-            E = E(:,mink + 1:end);
         end
         L = L - 1;
        
     end
+    E = EvalPoly(eye(L),X,Ttmp);
     
     if irls
         htmp = IRLS(E,V,X,Ttmp,eta,alp);
@@ -108,6 +120,7 @@ while 1/N*norm(V - E*htmp) <= eta && L > 1
         % R1 = R(1:L,1:L);
         % htmp = R1\(Q1'*V);
 
+
         if alp ~= 0
             opts = optimoptions('fminunc','Display','none');
             htmp = fminunc(@(h)objective1(h,V, X,Ttmp,alp),htmp,opts);
@@ -115,16 +128,17 @@ while 1/N*norm(V - E*htmp) <= eta && L > 1
     end
 end
 
-if 1/N*norm(V - E*htmp) <= eta && L == 1
+if 1/N*norm(V - EvalPoly(htmp,X,Ttmp)) <= eta && L == 1
     h = htmp;
     T = Ttmp;
+    zeroingT0 = zeroingT;
 end
 
 if ~deleteminor
     htmp = zeros(L0,1);
     ctr = 1;
     for i = 1:L0
-        if( zeroingT(i) ~= 0) && (ctr <= length(h))
+        if(zeroingT0(i) ~= 0) && (ctr <= length(h))
             htmp(i) = h(ctr);
             ctr = ctr + 1;
         end
